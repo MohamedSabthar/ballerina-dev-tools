@@ -668,7 +668,7 @@
       }
     },
     {
-      "name": "ai.agent",
+      "name": "ai",
       "version": "0.7.16",
       "serviceTypeSkipList": [],
       "serviceDeclaration": {

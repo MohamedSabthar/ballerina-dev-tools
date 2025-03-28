@@ -8,7 +8,7 @@
   "codedata": {
     "node": "AGENT_CALL",
     "org": "ballerinax",
-    "module": "ai.agent",
+    "module": "ai",
     "object": "Agent",
     "symbol": "run",
     "parentSymbol": "agentRun",
@@ -24,7 +24,7 @@
     "codedata": {
       "node": "AGENT_CALL",
       "org": "ballerinax",
-      "module": "ai.agent",
+      "module": "ai",
       "object": "Agent",
       "symbol": "run",
       "version": "0.7.15",
@@ -38,7 +38,7 @@
           "description": "Connection to use"
         },
         "valueType": "EXPRESSION",
-        "valueTypeConstraint": "agent:Agent",
+        "valueTypeConstraint": "ai:Agent",
         "value": "agentRun",
         "optional": false,
         "editable": false,

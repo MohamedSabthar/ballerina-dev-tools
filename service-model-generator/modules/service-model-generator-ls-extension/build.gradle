@@ -141,3 +141,5 @@ compileJava {
 artifacts {
     archives shadowJar
 }
+
+defineSyncTask("lib/tools/lang-server/lib")
