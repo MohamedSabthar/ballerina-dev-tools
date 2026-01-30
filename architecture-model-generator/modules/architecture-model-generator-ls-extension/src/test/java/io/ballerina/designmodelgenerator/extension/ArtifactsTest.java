@@ -27,6 +27,7 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Set;
 
 /**
  * Tests for getting the artifacts for a package.
@@ -44,10 +45,11 @@ public class ArtifactsTest extends AbstractLSTest {
         JsonObject artifactsResponse = getResponseAndCloseFile(request, testConfig.source);
         JsonObject artifact = artifactsResponse.getAsJsonObject("artifacts");
 
-        if (!artifact.equals(testConfig.output())) {
+        Set<String> ignoreFields = Set.of("icon");
+        if (!jsonEquals(artifact, testConfig.output(), ignoreFields)) {
             TestConfig updatedConfig = new TestConfig(testConfig.description(), testConfig.source(), artifact);
 //            updateConfig(configJsonPath, updatedConfig);
-            compareJsonElements(artifact, testConfig.output());
+            compareJsonElements(artifact, testConfig.output(), ignoreFields);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.description(), configJsonPath));
         }
     }

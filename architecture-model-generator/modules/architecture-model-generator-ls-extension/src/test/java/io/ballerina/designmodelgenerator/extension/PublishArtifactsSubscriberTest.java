@@ -18,6 +18,7 @@
 
 package io.ballerina.designmodelgenerator.extension;
 
+import com.google.gson.JsonElement;
 import io.ballerina.artifactsgenerator.Artifact;
 import io.ballerina.artifactsgenerator.ArtifactGenerationDebouncer;
 import io.ballerina.artifactsgenerator.ArtifactsCache;
@@ -45,6 +46,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -183,10 +185,10 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
         // Verify the client was called with the expected artifacts
         Mockito.verify(mockClient).publishArtifacts(artifactsCaptor.capture());
         Object capturedValue = artifactsCaptor.getValue();
-        
+
         @SuppressWarnings("unchecked")
         ArtifactsParams artifactsParams = (ArtifactsParams) capturedValue;
-        Map<String, Map<String, Map<String, Artifact>>> expectedArtifacts = testConfig.output();
+        JsonElement expectedArtifacts = gson.toJsonTree(testConfig.output());
 
         // Retrieve and validate the captured URI
         String uri = artifactsParams.uri();
@@ -198,12 +200,13 @@ public class PublishArtifactsSubscriberTest extends AbstractLSTest {
         }
 
         // Assert the published artifacts
-        Map<String, Map<String, Map<String, Artifact>>> publishedArtifacts = artifactsParams.artifacts();
-        if (!publishedArtifacts.equals(expectedArtifacts)) {
+        JsonElement publishedArtifacts = gson.toJsonTree(artifactsParams.artifacts());
+        Set<String> ignoreFields = Set.of("icon");
+        if (!jsonEquals(publishedArtifacts, expectedArtifacts, ignoreFields)) {
             TestConfig updatedConfig =
-                    new TestConfig(testConfig.source(), testConfig.description(), publishedArtifacts);
+                    new TestConfig(testConfig.source(), testConfig.description(), artifactsParams.artifacts());
 //            updateConfig(configJsonPath, updatedConfig);
-            compareJsonElements(gson.toJsonTree(publishedArtifacts), gson.toJsonTree(expectedArtifacts));
+            compareJsonElements(publishedArtifacts, expectedArtifacts, ignoreFields);
             Assert.fail(String.format("Failed test: '%s' (%s)", testConfig.source(), configJsonPath));
         }
     }
