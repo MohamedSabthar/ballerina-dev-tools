@@ -370,7 +370,7 @@ public abstract class AbstractLSTest {
 
             if (ignoreFields.contains(key)) {
                 String ignoredPath = path.isEmpty() ? key : path + "." + key;
-                log.info("- Ignoring field '{}'", ignoredPath);
+                log.info("- Ignoring field '{}' in actual json", ignoredPath);
                 continue;
             }
 
@@ -386,6 +386,8 @@ public abstract class AbstractLSTest {
             String currentPath = path.isEmpty() ? key : path + "." + key;
 
             if (ignoreFields.contains(key)) {
+                String ignoredPath = path.isEmpty() ? key : path + "." + key;
+                log.info("- Ignoring field '{}' in expected json", ignoredPath);
                 continue;
             }
 
