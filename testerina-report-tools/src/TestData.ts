@@ -111,8 +111,8 @@ export type EvalRun = {
 // Evaluation summary structure (as it appears in JSON)
 export type EvaluationSummary = {
     evaluationRuns: EvalRun[];
-    targetConfidence: number;
-    observedConfidence: number;
+    targetPassRate: number;
+    observedPassRate: number;
 }
 
 // Helper function to check if a test is an evaluation test

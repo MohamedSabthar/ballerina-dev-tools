@@ -45,16 +45,16 @@ export default function EvalPage({ test, moduleName, onBack }: EvalPageProps) {
                         <div className="eval-stat-value">{hasDataProvider ? 'Yes' : 'No'}</div>
                         <div className="eval-stat-label">Data Provider</div>
                     </div>
-                    {evalSummary?.targetConfidence !== undefined && (
+                    {evalSummary?.targetPassRate !== undefined && (
                         <div className="eval-stat">
-                            <div className="eval-stat-value">{(evalSummary.targetConfidence * 100).toFixed(0)}%</div>
-                            <div className="eval-stat-label">Target Confidence</div>
+                            <div className="eval-stat-value">{(evalSummary.targetPassRate * 100).toFixed(0)}%</div>
+                            <div className="eval-stat-label">Target Pass Rate</div>
                         </div>
                     )}
-                    {evalSummary?.observedConfidence !== undefined && (
+                    {evalSummary?.observedPassRate !== undefined && (
                         <div className="eval-stat">
-                            <div className="eval-stat-value">{(evalSummary.observedConfidence * 100).toFixed(0)}%</div>
-                            <div className="eval-stat-label">Observed Confidence</div>
+                            <div className="eval-stat-value">{(evalSummary.observedPassRate * 100).toFixed(0)}%</div>
+                            <div className="eval-stat-label">Observed Pass Rate</div>
                         </div>
                     )}
                 </div>
